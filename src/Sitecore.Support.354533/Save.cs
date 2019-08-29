@@ -12,8 +12,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using Sitecore.Configuration;
 
-namespace Sitecore.Pipelines.Upload.Save
+namespace Sitecore.Support.Pipelines.Upload
 {
     /// <summary>
     /// Saves the uploaded files.
@@ -53,6 +54,12 @@ namespace Sitecore.Pipelines.Upload.Save
                         }
                         else
                         {
+                            // Begin of Sitecore.Support.354533
+                            if (Settings.Upload.SimpleUploadOverwriting)
+                            {
+                                args.Overwrite = true;
+                            }
+                            // End of Sitecore.Support.354533
                             MediaUploader mediaUploader = new MediaUploader
                             {
                                 File = httpPostedFile,
